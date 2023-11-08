@@ -3,45 +3,36 @@ package com.crowdar.examples.steps;
 import com.crowdar.core.PageSteps;
 import com.crowdar.examples.services.CalculatorService;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class CalculatorSteps extends PageSteps {
 
+    @When("ingreso un numero {string}")
+    public void ingresoUnValor(String numero)  throws InterruptedException  {
+        CalculatorService.inputNumeros(numero);
+    }
+
     @When("Seven Plus Eight")
     public void plus() {
     	CalculatorService.plus();
     }
-    
-    @Then("Result is Fifteen")
-    public void result() {
-    	CalculatorService.result();
+    @And("clic en la el boton de sumar")
+    public void clicEnLaElBotonDeSumar() { CalculatorService.plus();
     }
-
-    @When("Eight Minus Two")
-    public void nineMinusSeven() {
-        CalculatorService.minus();
+    @And("clic en la el boton de restar")
+    public void clicEnLaElBotonDeRestar() { CalculatorService.minus();
     }
-    @Then("Result is Six")
-    public void resultIsSix() {
-        CalculatorService.resultMinus();
+    @And("clic en la el boton de multiplicar")
+    public void clicEnLaElBotonDeMultiplicar() { CalculatorService.multiply();
     }
-    @When("Multiply Nine by Three")
-    public void multiplyNineByThree() {
-        CalculatorService.multiply();
+    @And("clic en la el boton de dividir")
+    public void clicEnLaElBotonDeDividir() { CalculatorService.divide();
     }
-    @Then("Result is Twentyseven")
-    public void resultIsTwentyseven() {
-        CalculatorService.resultMultiply();
+    @Then("el resultado es {string}")
+    public void elResultadoEs(String resultado) {
+        CalculatorService.verifyResult(resultado);
     }
-    @When("Eight divided by Two")
-    public void eightDividedByTwo() {
-        CalculatorService.divide();
-    }
-    @Then("Result is Four")
-    public void resultIsFour() {
-        CalculatorService.resultDivide();
-    }
-
 
 }

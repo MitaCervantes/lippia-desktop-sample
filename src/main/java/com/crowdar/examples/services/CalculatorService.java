@@ -10,48 +10,40 @@ public class CalculatorService {
 	private CalculatorService() {}
 
 	public static void plus() {
-    	ActionManager.click(CalculatorConstants.SEVEN);
     	ActionManager.click(CalculatorConstants.PLUS);
-        ActionManager.click(CalculatorConstants.EIGHT);
-        ActionManager.click(CalculatorConstants.EQUAL);
     }
-    
-    public static void result() {
-    	Assert.assertEquals(getResult(),"15");
-    }
-
     public static void minus() {
-        ActionManager.click(CalculatorConstants.EIGHT);
         ActionManager.click(CalculatorConstants.MINUS);
-        ActionManager.click(CalculatorConstants.TWO);
-        ActionManager.click(CalculatorConstants.EQUAL);
-    }
-    public static void resultMinus() {
-        Assert.assertEquals(getResult(),"6");
     }
 
     public static void multiply(){
-        ActionManager.click(CalculatorConstants.NINE);
         ActionManager.click(CalculatorConstants.MULTIPLY);
-        ActionManager.click(CalculatorConstants.THREE);
-        ActionManager.click(CalculatorConstants.EQUAL);
     }
-    public static void resultMultiply() {
-        Assert.assertEquals(getResult(),"27");
-    }
-
     public static void divide(){
-        ActionManager.click(CalculatorConstants.EIGHT);
         ActionManager.click(CalculatorConstants.DIVIDE);
-        ActionManager.click(CalculatorConstants.TWO);
-        ActionManager.click(CalculatorConstants.EQUAL);
     }
 
-    public static void resultDivide() {
-        Assert.assertEquals(getResult(),"4");
+    public static void inputNumeros(String numero) throws InterruptedException  {
+        digitarNumeros(numero);
     }
+
+    private static void digitarNumeros(String cifra) throws InterruptedException {
+        String[] strArrayNums = cifra.split("");
+
+        for (String digito : strArrayNums) {
+                String xpath = String.format("XPATH://*[@AutomationId='num%sButton']", digito);
+                ActionManager.click(xpath);
+        }
+    }
+
     public static String getResult() {
+        ActionManager.click(CalculatorConstants.EQUAL);
 		return ActionManager.getText(CalculatorConstants.CALCULATOR_RESULTS).replaceAll("\\D+", "").trim();
+        //return ActionManager.getAttribute(CalculatorConstants.CALCULATOR_RESULTS, "Name");
+    }
+
+    public static void verifyResult(String resultado) {
+        Assert.assertEquals(getResult(), resultado, "el resultado es incorrecto");
     }
 
 
